@@ -1,0 +1,62 @@
+<div class="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md mx-auto bg-white rounded-lg shadow p-8">
+    <div class="mb-8">
+      <h2 class="text-2xl font-bold text-gray-900">
+        {{ isEditMode ? 'Editar Vehículo' : 'Nuevo Vehículo' }}
+      </h2>
+      <p class="text-sm text-gray-600">
+        Complete la información del vehículo a continuación.
+      </p>
+    </div>
+
+    <form [formGroup]="vehicleForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Placa</label>
+        <input type="text" formControlName="placa" placeholder="ABC-1234"
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        <div *ngIf="vehicleForm.get('placa')?.touched && vehicleForm.get('placa')?.invalid" class="mt-1 text-xs text-red-600">
+          Formato inválido (Ej: ABC-1234).
+        </div>
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Marca</label>
+        <input type="text" formControlName="marca"
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Modelo</label>
+        <input type="text" formControlName="modelo"
+          class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Año</label>
+          <input type="number" formControlName="anio"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+        <div>
+          <label class="block text-sm font-medium text-gray-700">Color</label>
+          <input type="text" formControlName="color"
+            class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm">
+        </div>
+      </div>
+
+      <div *ngIf="errorMessage" class="bg-red-50 border-l-4 border-red-400 p-4">
+        <p class="text-sm text-red-700">{{ errorMessage }}</p>
+      </div>
+
+      <div class="pt-4 flex items-center justify-end space-x-3">
+        <a routerLink="/vehicles" class="text-sm font-medium text-gray-600 hover:text-gray-900">
+          Cancelar
+        </a>
+        <button type="submit" [disabled]="vehicleForm.invalid || loading"
+          class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:bg-gray-400">
+          {{ loading ? 'Guardando...' : 'Guardar Vehículo' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
