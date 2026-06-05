@@ -71,3 +71,26 @@ jobs:
           path: playwright-report/
           retention-days: 10
 
+  security-owasp:
+    name: OWASP Dependency Check
+    runs-on: self-hosted
+    needs: build-and-unit-tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download OWASP Dependency Check
+        run: |
+          Invoke-WebRequest -Uri "https://github.com/jeremylong/DependencyCheck/releases/download/v9.0.9/dependency-check-9.0.9-release.zip" -OutFile "dependency-check.zip"
+          Expand-Archive -Path "dependency-check.zip" -DestinationPath "." -Force
+
+      - name: Run Dependency Check
+        run: .\dependency-check\bin\dependency-check.bat --project "VehicleManagement.Frontend" --scan "." --format "HTML"
+
+      - name: Upload OWASP Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: dependency-check-report
+          path: dependency-check-report.html
+
