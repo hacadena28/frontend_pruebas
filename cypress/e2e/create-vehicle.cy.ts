@@ -24,6 +24,7 @@ describe('Vehicle Creation', () => {
 
   it('Debe mostrar el formulario y permitir crear un vehículo', () => {
     // IMPORTANTE: El endpoint es **/Vehiculos/
+    // Interceptamos la creación del vehículo ANTES de navegar a la página, para asegurarnos de que el interceptor esté activo cuando se haga la petición POST.
     cy.intercept('POST', '**/Vehiculos/', {
       statusCode: 201,
       body: { message: 'Vehículo creado' }
