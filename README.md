@@ -44,6 +44,24 @@ To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use th
 ng test
 ```
 
+## SonarQube Analysis & Coverage
+
+To analyze the project and see the code coverage in SonarQube, follow these steps:
+
+1.  **Generate Coverage Report**:
+    Run the following command to execute tests and generate the `lcov.info` report:
+    ```bash
+    npm run test:coverage
+    ```
+
+2.  **Run SonarQube Scanner**:
+    Ensure your SonarQube server is running and your token is correctly configured in `sonar-project.properties`. Then run:
+    ```bash
+    npm run sonar
+    ```
+
+After the analysis finishes, you can view the results at `http://localhost:9000` (or your configured SonarQube URL).
+
 ## Running end-to-end tests
 
 For end-to-end (e2e) testing, run:
