@@ -27,7 +27,16 @@ jobs:
         run: npm run build
 
       - name: Run Unit Tests (Vitest)
-        run: npm run test -- --watch=false
+        run: npm run test -- --watch=false --coverage
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4.1.0
+        with:
+          args: >
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: "http://localhost:9000"
 
   e2e-tests:
     name: E2E Tests (Playwright)
@@ -59,19 +68,3 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 10
-
-  sonarqube:
-    name: SonarQube Analysis
-    runs-on: ubuntu-latest
-    needs: build-and-unit-tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0  # SonarQube needs full history for blame
-
-      - name: SonarQube Scan
-        uses: SonarSource/sonarqube-scan-action@v4.1.0
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: "http://localhost:9000"
