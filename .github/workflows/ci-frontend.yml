@@ -2,9 +2,9 @@ name: Frontend CI Pipeline
 
 on:
   push:
-    branches: [ "dev", "qa", "main" ]
+    branches: [ "develop", "qa", "main" ]
   pull_request:
-    branches: [ "dev", "qa", "main" ]
+    branches: [ "develop", "qa", "main" ]
 
 jobs:
   build-and-unit-tests:
