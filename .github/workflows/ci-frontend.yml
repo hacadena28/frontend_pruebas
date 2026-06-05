@@ -79,18 +79,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download OWASP Dependency Check
-        run: |
-          Invoke-WebRequest -Uri "https://github.com/jeremylong/DependencyCheck/releases/download/v9.0.9/dependency-check-9.0.9-release.zip" -OutFile "dependency-check.zip"
-          Expand-Archive -Path "dependency-check.zip" -DestinationPath "." -Force
-
-      - name: Run Dependency Check
-        run: .\dependency-check\bin\dependency-check.bat --project "VehicleManagement.Frontend" --scan "." --format "HTML"
+      - name: Run Dependency Check via Docker
+        run: docker run --rm -v "${{ github.workspace }}:/src" -v "${{ github.workspace }}/reports:/report" owasp/dependency-check:latest --scan /src --format "HTML" --project "VehicleManagement.Frontend" --out /report
 
       - name: Upload OWASP Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: dependency-check-report
-          path: dependency-check-report.html
+          path: reports/dependency-check-report.html
 
