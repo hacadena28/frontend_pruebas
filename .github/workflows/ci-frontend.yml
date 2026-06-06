@@ -28,7 +28,7 @@ jobs:
         run: npm run build
 
       - name: Run Unit Tests (Vitest)
-        run: npm run test -- --watch=false --coverage
+        run: npm run test:coverage
 
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
