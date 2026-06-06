@@ -166,6 +166,8 @@ jobs:
     runs-on: self-hosted
     needs: [build-and-unit-tests, e2e-tests, cypress-tests, owasp-zap]
     if: always()
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -204,5 +206,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
           destination_dir: frontend
-          keep_history: true
+          keep_files: true
 
