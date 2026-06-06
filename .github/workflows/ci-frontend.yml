@@ -107,10 +107,64 @@ jobs:
           path: cypress/reports/html/
           retention-days: 10
 
+  owasp-zap:
+    name: OWASP ZAP Security Scan
+    runs-on: self-hosted
+    needs: build-and-unit-tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Start Frontend Server
+        run: Start-Process -NoNewWindow npm -ArgumentList "run", "start"
+
+      - name: Wait for Server
+        run: |
+          $maxRetries = 30
+          $retryCount = 0
+          while ($retryCount -lt $maxRetries) {
+              try {
+                  $response = Invoke-WebRequest -Uri "http://localhost:4200" -UseBasicParsing
+                  break
+              } catch {
+                  Write-Host "Waiting for frontend server..."
+                  Start-Sleep -Seconds 2
+                  $retryCount++
+              }
+          }
+          if ($retryCount -eq $maxRetries) { Write-Error "Timeout waiting for frontend"; exit 1 }
+
+      - name: Run OWASP ZAP Baseline Scan
+        run: |
+          docker run --rm -v "${PWD}:/zap/wrk/:rw" -t ghcr.io/zaproxy/zaproxy:stable zap-baseline.py -t http://host.docker.internal:4200 -r zap-report.html -I
+
+      - name: Stop Frontend Server
+        if: always()
+        run: |
+          $port = 4200
+          $process = Get-NetTCPConnection -LocalPort $port -ErrorAction SilentlyContinue
+          if ($process) { Stop-Process -Id $process.OwningProcess -Force -ErrorAction SilentlyContinue }
+
+      - name: Upload ZAP Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: zap-report
+          path: zap-report.html
+          retention-days: 10
+
   deploy-pages:
     name: Deploy Reports to GitHub Pages
     runs-on: self-hosted
-    needs: [build-and-unit-tests, e2e-tests, cypress-tests]
+    needs: [build-and-unit-tests, e2e-tests, cypress-tests, owasp-zap]
     if: always()
     steps:
       - name: Checkout code
@@ -137,6 +191,13 @@ jobs:
           name: frontend-coverage
           path: public/coverage
           
+      - name: Download ZAP Report
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: zap-report
+          path: public/zap
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
