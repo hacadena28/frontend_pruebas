@@ -30,6 +30,14 @@ jobs:
       - name: Run Unit Tests (Vitest)
         run: npm run test:coverage
 
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-coverage
+          path: coverage/
+          retention-days: 10
+
       - name: SonarQube Scan
         uses: SonarSource/sonarqube-scan-action@master
         with:
