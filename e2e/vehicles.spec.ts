@@ -2,15 +2,16 @@ import { test, expect } from '@playwright/test';
 
 test.describe('Vehicle List Page', () => {
   test.beforeEach(async ({ page }) => {
-    await page.evaluate(() => localStorage.setItem('token', 'fake-token'));
+    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+    await page.addInitScript(() => localStorage.setItem('token', 'fake-token'));
   });
 
   test('should display empty state when no vehicles are returned', async ({ page }) => {
-    await page.route('**/Vehiculo*', async route => {
+    await page.route('**/Vehiculos/**', async route => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
-        body: JSON.stringify([]),
+        body: JSON.stringify({ data: [], success: true }),
       });
     });
 
@@ -24,11 +25,11 @@ test.describe('Vehicle List Page', () => {
       { id: 2, placa: 'XYZ-987', marca: 'Honda', modelo: 'Civic', anio: 2021, color: 'Azul' }
     ];
 
-    await page.route('**/Vehiculo*', async route => {
+    await page.route('**/Vehiculos/**', async route => {
       await route.fulfill({
         status: 200,
         contentType: 'application/json',
-        body: JSON.stringify(mockVehicles),
+        body: JSON.stringify({ data: mockVehicles, success: true }),
       });
     });
 
@@ -41,7 +42,7 @@ test.describe('Vehicle List Page', () => {
   });
 
   test('should show error message when API fails', async ({ page }) => {
-    await page.route('**/Vehiculo*', async route => {
+    await page.route('**/Vehiculos/**', async route => {
       await route.fulfill({
         status: 500,
         contentType: 'application/json',
@@ -50,7 +51,7 @@ test.describe('Vehicle List Page', () => {
     });
 
     await page.goto('/vehicles');
-    await expect(page.locator('text=Error de servidor')).toBeVisible();
+    await expect(page.locator('text=No se pudieron cargar los vehículos')).toBeVisible();
   });
 
   test('should delete a vehicle successfully', async ({ page }) => {
@@ -58,17 +59,17 @@ test.describe('Vehicle List Page', () => {
       { id: 1, placa: 'ABC-123', marca: 'Toyota', modelo: 'Corolla', anio: 2020, color: 'Rojo' }
     ];
 
-    await page.route('**/Vehiculo*', async (route) => {
+    await page.route('**/Vehiculos/**', async (route) => {
       if (route.request().method() === 'GET') {
-        // Return 1 vehicle first, then 0 after delete
-        // But Playwright route is stateless by default, so we use a flag
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
-          body: JSON.stringify(mockVehicles),
+          body: JSON.stringify({ data: mockVehicles, success: true }),
         });
       } else if (route.request().method() === 'DELETE') {
-        await route.fulfill({ status: 200, body: JSON.stringify({ message: 'OK' }) });
+        await route.fulfill({ status: 200, body: JSON.stringify({ message: 'OK', success: true }) });
+      } else {
+        await route.fallback();
       }
     });
 
@@ -76,14 +77,15 @@ test.describe('Vehicle List Page', () => {
     await expect(page.locator('li')).toHaveCount(1);
 
     // Re-route GET to return empty list for the refresh
-    await page.route('**/Vehiculo*', async route => {
+    await page.route('**/Vehiculos/**', async route => {
       if (route.request().method() === 'GET') {
-        await route.fulfill({ status: 200, body: JSON.stringify([]) });
+        await route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ data: [], success: true }) });
       } else {
-        await route.continue();
+        await route.fallback();
       }
     });
 
+    page.on('dialog', dialog => dialog.accept());
     await page.click('button:has-text("Eliminar")');
     await expect(page.locator('text=No hay vehículos registrados.')).toBeVisible();
   });

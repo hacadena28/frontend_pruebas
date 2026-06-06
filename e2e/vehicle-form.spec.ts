@@ -11,7 +11,8 @@ test.describe('Vehicle Form Page (Create and Edit)', () => {
   };
 
   test.beforeEach(async ({ page }) => {
-    await page.evaluate(() => localStorage.setItem('token', 'fake-token'));
+    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
+    await page.addInitScript(() => localStorage.setItem('token', 'fake-token'));
   });
 
   test.describe('Creation Mode', () => {
@@ -35,13 +36,15 @@ test.describe('Vehicle Form Page (Create and Edit)', () => {
     });
 
     test('should create a vehicle successfully', async ({ page }) => {
-      await page.route('**/Vehiculo*', async route => {
+      await page.route('**/Vehiculos/**', async route => {
         if (route.request().method() === 'POST') {
           await route.fulfill({
             status: 201,
             contentType: 'application/json',
             body: JSON.stringify({ data: mockVehicle }),
           });
+        } else {
+          await route.fallback();
         }
       });
 
@@ -58,23 +61,21 @@ test.describe('Vehicle Form Page (Create and Edit)', () => {
 
   test.describe('Editing Mode', () => {
     test('should load vehicle data and update successfully', async ({ page }) => {
-      await page.route('**/Vehiculo/123', async route => {
-        await route.fulfill({
-          status: 200,
-          contentType: 'application/json',
-          body: JSON.stringify({ data: mockVehicle }),
-        });
-      });
-
-      await page.route('**/Vehiculo/123', async route => {
-        if (route.request().method() === 'PUT') {
+      await page.route('**/Vehiculos/123', async route => {
+        if (route.request().method() === 'GET') {
+          await route.fulfill({
+            status: 200,
+            contentType: 'application/json',
+            body: JSON.stringify({ data: mockVehicle }),
+          });
+        } else if (route.request().method() === 'PUT') {
           await route.fulfill({
             status: 200,
             contentType: 'application/json',
             body: JSON.stringify({ data: { ...mockVehicle, color: 'Blanco' } }),
           });
         } else {
-          await route.continue();
+          await route.fallback();
         }
       });
 
@@ -90,7 +91,7 @@ test.describe('Vehicle Form Page (Create and Edit)', () => {
     });
 
     test('should show error when loading fails', async ({ page }) => {
-      await page.route('**/Vehiculo/999', async route => {
+      await page.route('**/Vehiculos/999', async route => {
         await route.fulfill({
           status: 404,
           contentType: 'application/json',
