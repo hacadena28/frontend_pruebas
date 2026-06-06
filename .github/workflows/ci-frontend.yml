@@ -20,7 +20,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -66,7 +65,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -105,7 +103,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -119,7 +116,7 @@ jobs:
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          start: npx http-server dist/vehicle-management-ui/browser -p 4200
+          start: npx --yes serve -s dist/vehicle-management-ui/browser -p 4200
           wait-on: 'http://localhost:4200'
           wait-on-timeout: 120
 
@@ -143,7 +140,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -155,11 +151,11 @@ jobs:
           path: dist/
 
       - name: Start Static Server
-        run: Start-Process -NoNewWindow npx -ArgumentList "http-server", "dist/vehicle-management-ui/browser", "-p", "4200"
+        run: Start-Process -NoNewWindow npx -ArgumentList "--yes", "serve", "-s", "dist/vehicle-management-ui/browser", "-p", "4200"
 
       - name: Wait for Server
         run: |
-          $maxRetries = 10
+          $maxRetries = 30
           $retryCount = 0
           while ($retryCount -lt $maxRetries) {
               try {
@@ -191,50 +187,3 @@ jobs:
           name: zap-report
           path: zap-report.html
           retention-days: 10
-
-  deploy-pages:
-    name: Deploy Reports to GitHub Pages
-    runs-on: self-hosted
-    needs: [build-and-unit-tests, e2e-tests, cypress-tests, owasp-zap]
-    if: always()
-    permissions:
-      contents: write
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Download Playwright Report
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          name: playwright-report
-          path: public/playwright
-          
-      - name: Download Cypress Report
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          name: cypress-report
-          path: public/cypress
-
-      - name: Download Frontend Coverage
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          name: frontend-coverage
-          path: public/coverage
-          
-      - name: Download ZAP Report
-        uses: actions/download-artifact@v4
-        continue-on-error: true
-        with:
-          name: zap-report
-          path: public/zap
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          destination_dir: frontend
-          keep_files: true
