@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1780765138344" clover="3.2.0">
+  <project timestamp="1780765138345" name="All files">
+    <metrics statements="219" coveredstatements="185" conditionals="114" coveredconditionals="99" methods="40" coveredmethods="34" elements="373" coveredelements="318" complexity="0" loc="219" ncloc="219" packages="6" files="7" classes="7"/>
+    <package name="app.core.services.auth">
+      <metrics statements="16" coveredstatements="16" conditionals="9" coveredconditionals="7" methods="5" coveredmethods="5"/>
+      <file name="auth.ts" path="C:\MyAgent\Front\actions-runner\_work\frontend_pruebas\frontend_pruebas\src\app\core\services\auth\auth.ts">
+        <metrics statements="16" coveredstatements="16" conditionals="9" coveredconditionals="7" methods="5" coveredmethods="5"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="11" count="6" type="cond" truecount="5" falsecount="0"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="19" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="20" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="29" count="1" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="39" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.core.services.vehicle">
+      <metrics statements="10" coveredstatements="9" conditionals="5" coveredconditionals="5" methods="5" coveredmethods="4"/>
+      <file name="vehicle.ts" path="C:\MyAgent\Front\actions-runner\_work\frontend_pruebas\frontend_pruebas\src\app\core\services\vehicle\vehicle.ts">
+        <metrics statements="10" coveredstatements="9" conditionals="5" coveredconditionals="5" methods="5" coveredmethods="4"/>
+        <line num="1" count="3" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="11" count="5" type="cond" truecount="5" falsecount="0"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="app.features.auth.login">
+      <metrics statements="56" coveredstatements="49" conditionals="20" coveredconditionals="18" methods="5" coveredmethods="4"/>
+      <file name="login.ts" path="C:\MyAgent\Front\actions-runner\_work\frontend_pruebas\frontend_pruebas\src\app\features\auth\login\login.ts">
+        <metrics statements="56" coveredstatements="49" conditionals="20" coveredconditionals="18" methods="5" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="17" count="6" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="24" count="14" type="stmt"/>
+        <line num="25" count="6" type="stmt"/>
+        <line num="27" count="6" type="stmt"/>
+        <line num="28" count="6" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="32" count="6" type="stmt"/>
+        <line num="33" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="34" count="1" type="stmt"/>
+        <line num="35" count="1" type="stmt"/>
+        <line num="36" count="6" type="stmt"/>
+        <line num="38" count="6" type="stmt"/>
+        <line num="40" count="6" type="stmt"/>
+        <line num="41" count="6" type="stmt"/>
+        <line num="42" count="6" type="stmt"/>
+        <line num="43" count="6" type="stmt"/>
+        <line num="45" count="6" type="stmt"/>
+        <line num="46" count="14" type="cond" truecount="2" falsecount="0"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="49" count="6" type="stmt"/>
+        <line num="51" count="14" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="61" count="6" type="stmt"/>
+        <line num="62" count="14" type="cond" truecount="1" falsecount="1"/>
+        <line num="64" count="14" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="70" count="6" type="stmt"/>
+        <line num="71" count="6" type="stmt"/>
+        <line num="80" count="20" type="cond" truecount="10" falsecount="0"/>
+        <line num="81" count="6" type="stmt"/>
+        <line num="82" count="6" type="stmt"/>
+        <line num="83" count="6" type="stmt"/>
+        <line num="85" count="6" type="stmt"/>
+        <line num="90" count="6" type="stmt"/>
+        <line num="91" count="6" type="stmt"/>
+        <line num="94" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="95" count="3" type="stmt"/>
+        <line num="96" count="3" type="stmt"/>
+        <line num="98" count="3" type="stmt"/>
+        <line num="103" count="3" type="stmt"/>
+        <line num="105" count="1" type="stmt"/>
+        <line num="108" count="2" type="stmt"/>
+        <line num="109" count="2" type="cond" truecount="2" falsecount="0"/>
+      </file>
+    </package>
+    <package name="app.features.vehicles.vehicle-form">
+      <metrics statements="74" coveredstatements="69" conditionals="45" coveredconditionals="35" methods="11" coveredmethods="9"/>
+      <file name="vehicle-form.html" path="C:\MyAgent\Front\actions-runner\_work\frontend_pruebas\frontend_pruebas\src\app\features\vehicles\vehicle-form\vehicle-form.html">
+        <metrics statements="38" coveredstatements="35" conditionals="8" coveredconditionals="5" methods="1" coveredmethods="0"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="5" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="6" count="6" type="stmt"/>
+        <line num="7" count="6" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
+        <line num="9" count="6" type="stmt"/>
+        <line num="12" count="12" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="15" count="6" type="stmt"/>
+        <line num="17" count="12" type="cond" truecount="2" falsecount="0"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="23" count="6" type="stmt"/>
+        <line num="24" count="6" type="stmt"/>
+        <line num="26" count="6" type="stmt"/>
+        <line num="28" count="6" type="stmt"/>
+        <line num="29" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="32" count="6" type="stmt"/>
+        <line num="34" count="6" type="stmt"/>
+        <line num="36" count="6" type="stmt"/>
+        <line num="37" count="6" type="stmt"/>
+        <line num="39" count="6" type="stmt"/>
+        <line num="40" count="6" type="stmt"/>
+        <line num="41" count="6" type="stmt"/>
+        <line num="42" count="6" type="stmt"/>
+        <line num="44" count="6" type="stmt"/>
+        <line num="47" count="12" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="51" count="6" type="stmt"/>
+        <line num="53" count="6" type="stmt"/>
+        <line num="54" count="6" type="stmt"/>
+        <line num="55" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="57" count="12" type="cond" truecount="1" falsecount="1"/>
+        <line num="58" count="6" type="stmt"/>
+      </file>
+      <file name="vehicle-form.ts" path="C:\MyAgent\Front\actions-runner\_work\frontend_pruebas\frontend_pruebas\src\app\features\vehicles\vehicle-form\vehicle-form.ts">
+        <metrics statements="36" coveredstatements="34" conditionals="37" coveredconditionals="30" methods="10" coveredmethods="9"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="16" count="18" type="cond" truecount="10" falsecount="0"/>
+        <line num="17" count="6" type="stmt"/>
+        <line num="18" count="6" type="stmt"/>
+        <line num="19" count="6" type="stmt"/>
+        <line num="20" count="6" type="stmt"/>
+        <line num="22" count="6" type="stmt"/>
+        <line num="30" count="6" type="stmt"/>
+        <line num="31" count="6" type="stmt"/>
+        <line num="32" count="6" type="stmt"/>
+        <line num="33" count="6" type="stmt"/>
+        <line num="36" count="7" type="stmt"/>
+        <line num="37" count="7" type="cond" truecount="2" falsecount="0"/>
+        <line num="38" count="1" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="44" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="45" count="1" type="stmt"/>
+        <line num="46" count="1" type="stmt"/>
+        <line num="47" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="51" count="1" type="stmt"/>
+        <line num="52" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="53" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="54" count="1" type="stmt"/>
+        <line num="61" count="1" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="73" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="74" count="3" type="stmt"/>
+        <line num="75" count="3" type="stmt"/>
+        <line num="77" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="81" count="3" type="stmt"/>
+        <line num="82" count="3" type="stmt"/>
+        <line num="84" count="2" type="stmt"/>
+        <line num="86" count="1" type="cond" truecount="2" falsecount="1"/>
+      </file>
+    </package>
+    <package name="app.features.vehicles.vehicle-list">
+      <metrics statements="62" coveredstatements="41" conditionals="35" coveredconditionals="34" methods="14" coveredmethods="12"/>
+      <file name="vehicle-list.ts" path="C:\MyAgent\Front\actions-runner\_work\frontend_pruebas\frontend_pruebas\src\app\features\vehicles\vehicle-list\vehicle-list.ts">
+        <metrics statements="62" coveredstatements="41" conditionals="35" coveredconditionals="34" methods="14" coveredmethods="12"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="14" count="8" type="stmt"/>
+        <line num="20" count="8" type="stmt"/>
+        <line num="23" count="8" type="stmt"/>
+        <line num="24" count="8" type="stmt"/>
+        <line num="25" count="8" type="stmt"/>
+        <line num="26" count="8" type="stmt"/>
+        <line num="32" count="8" type="stmt"/>
+        <line num="35" count="8" type="stmt"/>
+        <line num="36" count="8" type="stmt"/>
+        <line num="37" count="8" type="stmt"/>
+        <line num="38" count="8" type="stmt"/>
+        <line num="41" count="18" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="48" count="18" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="52" count="18" type="cond" truecount="3" falsecount="0"/>
+        <line num="53" count="8" type="stmt"/>
+        <line num="56" count="18" type="cond" truecount="3" falsecount="0"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="63" count="0" type="stmt"/>
+        <line num="64" count="0" type="stmt"/>
+        <line num="67" count="0" type="stmt"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+        <line num="70" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="75" count="0" type="stmt"/>
+        <line num="76" count="0" type="stmt"/>
+        <line num="77" count="0" type="stmt"/>
+        <line num="78" count="0" type="stmt"/>
+        <line num="79" count="0" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="85" count="0" type="stmt"/>
+        <line num="87" count="8" type="stmt"/>
+        <line num="93" count="26" type="cond" truecount="10" falsecount="0"/>
+        <line num="94" count="8" type="stmt"/>
+        <line num="95" count="8" type="stmt"/>
+        <line num="97" count="8" type="stmt"/>
+        <line num="98" count="8" type="stmt"/>
+        <line num="99" count="8" type="stmt"/>
+        <line num="102" count="8" type="stmt"/>
+        <line num="106" count="10" type="stmt"/>
+        <line num="107" count="10" type="stmt"/>
+        <line num="108" count="10" type="stmt"/>
+        <line num="109" count="10" type="stmt"/>
+        <line num="112" count="9" type="stmt"/>
+        <line num="113" count="9" type="cond" truecount="2" falsecount="1"/>
+        <line num="114" count="9" type="stmt"/>
+        <line num="125" count="1" type="stmt"/>
+        <line num="126" count="1" type="stmt"/>
+        <line num="132" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="133" count="2" type="stmt"/>
+        <line num="135" count="1" type="stmt"/>
+        <line num="138" count="1" type="stmt"/>
+        <line num="145" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="environments">
+      <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="environment.development.ts" path="C:\MyAgent\Front\actions-runner\_work\frontend_pruebas\frontend_pruebas\src\environments\environment.development.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="5" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
