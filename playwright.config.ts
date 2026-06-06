@@ -18,7 +18,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'npm run start',
+    command: process.env.CI ? 'npx http-server dist/vehicle-management-ui/browser -p 4200' : 'npm run start',
     url: 'http://localhost:4200',
     reuseExistingServer: !process.env.CI,
   },

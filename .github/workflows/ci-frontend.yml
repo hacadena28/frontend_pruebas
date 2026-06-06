@@ -20,12 +20,20 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build Application
         run: npm run build
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-build
+          path: dist/
+          retention-days: 10
 
       - name: Run Unit Tests (Vitest)
         run: npm run test:coverage
@@ -58,6 +66,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
@@ -65,7 +74,15 @@ jobs:
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
 
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: dist/
+
       - name: Run E2E tests
+        env:
+          CI: 1
         run: npx playwright test
 
       - name: Upload Playwright Report
@@ -88,14 +105,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: dist/
+
       - name: Run Cypress tests
         uses: cypress-io/github-action@v6
         with:
-          start: npm run start
+          start: npx http-server dist/vehicle-management-ui/browser -p 4200
           wait-on: 'http://localhost:4200'
           wait-on-timeout: 120
 
@@ -119,23 +143,30 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Start Frontend Server
-        run: Start-Process -NoNewWindow npm -ArgumentList "run", "start"
+      - name: Download Build Artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-build
+          path: dist/
+
+      - name: Start Static Server
+        run: Start-Process -NoNewWindow npx -ArgumentList "http-server", "dist/vehicle-management-ui/browser", "-p", "4200"
 
       - name: Wait for Server
         run: |
-          $maxRetries = 30
+          $maxRetries = 10
           $retryCount = 0
           while ($retryCount -lt $maxRetries) {
               try {
                   $response = Invoke-WebRequest -Uri "http://localhost:4200" -UseBasicParsing
                   break
               } catch {
-                  Write-Host "Waiting for frontend server..."
+                  Write-Host "Waiting for frontend static server..."
                   Start-Sleep -Seconds 2
                   $retryCount++
               }
@@ -207,4 +238,3 @@ jobs:
           publish_dir: ./public
           destination_dir: frontend
           keep_files: true
-
