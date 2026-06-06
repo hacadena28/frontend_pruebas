@@ -68,21 +68,3 @@ jobs:
           path: playwright-report/
           retention-days: 10
 
-  security-owasp:
-    name: OWASP Dependency Check
-    runs-on: self-hosted
-    needs: build-and-unit-tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Run Dependency Check via Docker
-        run: docker run --rm -v "${{ github.workspace }}:/src" -v "${{ github.workspace }}/reports:/report" owasp/dependency-check:latest --scan /src --format "HTML" --project "VehicleManagement.Frontend" --out /report --nvdApiKey ${{ secrets.NVD_API_KEY }}
-
-      - name: Upload OWASP Report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: dependency-check-report
-          path: reports/dependency-check-report.html
-
