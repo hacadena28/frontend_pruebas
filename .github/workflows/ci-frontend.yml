@@ -107,3 +107,41 @@ jobs:
           path: cypress/reports/html/
           retention-days: 10
 
+  deploy-pages:
+    name: Deploy Reports to GitHub Pages
+    runs-on: self-hosted
+    needs: [build-and-unit-tests, e2e-tests, cypress-tests]
+    if: always()
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download Playwright Report
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: playwright-report
+          path: public/playwright
+          
+      - name: Download Cypress Report
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: cypress-report
+          path: public/cypress
+
+      - name: Download Frontend Coverage
+        uses: actions/download-artifact@v4
+        continue-on-error: true
+        with:
+          name: frontend-coverage
+          path: public/coverage
+          
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          destination_dir: frontend
+          keep_history: true
+
