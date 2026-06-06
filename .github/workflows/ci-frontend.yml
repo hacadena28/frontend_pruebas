@@ -130,7 +130,7 @@ jobs:
 
   owasp-zap:
     name: OWASP ZAP Security Scan
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: build-and-unit-tests
     steps:
       - name: Checkout code
@@ -148,7 +148,6 @@ jobs:
           path: dist/
 
       - name: Serve frontend
-        shell: bash
         run: |
           npx --yes serve -s dist/vehicle-management-ui/browser -p 4200 &
           echo "Waiting for frontend..."
@@ -165,7 +164,7 @@ jobs:
         continue-on-error: true
         uses: zaproxy/action-full-scan@v0.12.0
         with:
-          target: 'http://host.docker.internal:4200'
+          target: 'http://localhost:4200'
           fail_action: false
           allow_issue_writing: false
           cmd_options: '-a'
