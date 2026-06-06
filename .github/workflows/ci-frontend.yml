@@ -77,7 +77,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Dependency Check via Docker
-        run: docker run --rm -v "${{ github.workspace }}:/src" -v "${{ github.workspace }}/reports:/report" owasp/dependency-check:latest --scan /src --format "HTML" --project "VehicleManagement.Frontend" --out /report
+        run: docker run --rm -v "${{ github.workspace }}:/src" -v "${{ github.workspace }}/reports:/report" owasp/dependency-check:latest --scan /src --format "HTML" --project "VehicleManagement.Frontend" --out /report --nvdApiKey ${{ secrets.NVD_API_KEY }}
 
       - name: Upload OWASP Report
         uses: actions/upload-artifact@v4
