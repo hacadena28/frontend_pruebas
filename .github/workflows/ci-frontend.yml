@@ -34,11 +34,6 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@master
         with:
           skipSignatureVerification: true
-          args: >
-            -Dsonar.projectKey=VehicleManagement.Frontend
-            -Dsonar.projectName="VehicleManagement Frontend"
-            -Dsonar.sources=src
-            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: "http://localhost:9000"
